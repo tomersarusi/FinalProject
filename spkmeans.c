@@ -166,7 +166,7 @@ int determineK(double* eigenvaluesArr, int sizeOfArr){
     qsort(cpyOfArr, sizeOfArr, sizeof(double), compEigenvalues);
     for (i = 0; i < floor(sizeOfArr/2); i++)
     {
-        delta = cpyOfArr[i] - cpyOfArr[i+1];
+        delta = fabs(cpyOfArr[i] - cpyOfArr[i+1]);
         if (delta > maxDelta)
         {
             maxDelta = delta;
@@ -220,25 +220,6 @@ double** computeJacobi(double** mtx, int sizeOfMtx, double* eigenvalues){ /*DEST
     Neo(mtx, sizeOfMtx);
     return output;
 }
-
-/* void roundMatrix(double** mtx, int n, int dim, int digits){ in place
-    int i,j, multiplier;
-    multiplier = (int)pow(10, digits);
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < dim; j++)
-        {
-            if (mtx[i][j] > 0)
-            {
-                mtx[i][j] = (double)floor(mtx[i][j] * multiplier) / multiplier;
-            }
-            if (mtx[i][j] < 0)
-            {
-                mtx[i][j] = (double)ceil(mtx[i][j] * multiplier) / multiplier;
-            }
-        }
-    }
-} */
 
 double calcOffSquared(double** mtx, int sizeOfMtx){
     int i,j;
@@ -304,9 +285,9 @@ int* getPivotPoint(double** mtx, int sizeOfMtx){
     output = calloc(2, sizeof(int));
     for (i = 0; i < sizeOfMtx; i++)
     {
-        for (j = 0; j < sizeOfMtx; j++)
+        for (j = i+1; j < sizeOfMtx; j++)
         {
-            if (i != j && fabs(mtx[i][j]) > maxVal)
+            if (fabs(mtx[i][j]) > maxVal)
             {
                 maxVal = fabs(mtx[i][j]);
                 output[0] = i;

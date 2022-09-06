@@ -6,7 +6,6 @@ double** partialSpk(int *k, double** mtx, int rowCnt, int clmCnt);
 int determineK(double* eigenvaluesArr, int sizeOfArr);
 int compEigenvalues(const void* elem1, const void* elem2);
 double** computeJacobi(double** mtx, int sizeOfMtx, double* eigenvalues);
-/* void roundMatrix(double** mtx, int n, int dim, int digits); */
 double calcOffSquared(double** mtx, int sizeOfMtx);
 double** createRotationMatrix(double** mtx, int sizeOfMtx);
 double* getSinCos(double Aii, double Ajj, double Aij);
