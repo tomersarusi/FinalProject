@@ -211,17 +211,17 @@ double** computePartialSpk(int *k, double** mtx, int n, int dim){
     output = callocMatrix(n, *k);
     for (i = 0; i < *k; i++) /* Calculate U */
     {
-        maxVal = -INFINITY;
+        maxVal = INFINITY;
         maxIndex = 0;
         for (j = 0; j < n; j++)
         {
-            if (eigenvalues[j] > maxVal)
+            if (eigenvalues[j] < maxVal)
             {
                 maxVal = eigenvalues[j];
                 maxIndex = j;
             }
         }
-        eigenvalues[maxIndex] = -INFINITY;
+        eigenvalues[maxIndex] = INFINITY;
         for (j = 0; j < n; j++)
             output[j][i] = eigenvectors[j][maxIndex];
     } /* End of calculate U */
@@ -351,9 +351,9 @@ double calcOffSquared(double** mtx, int sizeOfMtx){
 
 int compEigenvalues(const void* elem1, const void* elem2){
     if(*(double*)elem1 > *(double*)elem2)
-        return -1;
-    if(*(double*)elem1 < *(double*)elem2)
         return 1;
+    if(*(double*)elem1 < *(double*)elem2)
+        return -1;
     return 0;
 }
 
