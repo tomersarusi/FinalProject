@@ -88,7 +88,7 @@ static PyObject *wam(PyObject *self, PyObject *args){
         return NULL;
     }
     mtx = getMatrixFromFile(fileName, &rowCnt, &clmCnt);
-    wamMtx = createWeightAdjMatrix(mtx, rowCnt, clmCnt);
+    wamMtx = computeWeightAdjMatrix(mtx, rowCnt, clmCnt);
     output = pyMatrixFromDoubleArray(wamMtx, rowCnt, rowCnt);
     Neo(mtx, rowCnt);
     Neo(wamMtx, rowCnt);
@@ -105,8 +105,8 @@ static PyObject *ddg(PyObject *self, PyObject *args){
         return NULL;
     }
     mtx = getMatrixFromFile(fileName, &rowCnt, &clmCnt);
-    wamMtx = createWeightAdjMatrix(mtx, rowCnt, clmCnt);
-    ddgMatrix = diagDegMatrix(wamMtx, rowCnt);
+    wamMtx = computeWeightAdjMatrix(mtx, rowCnt, clmCnt);
+    ddgMatrix = computeDiagDegMatrix(wamMtx, rowCnt);
     output = pyMatrixFromDoubleArray(ddgMatrix, rowCnt, rowCnt);
     Neo(mtx, rowCnt);
     Neo(wamMtx, rowCnt);
@@ -124,8 +124,8 @@ static PyObject *lnorm(PyObject *self, PyObject *args){
         return NULL;
     }
     mtx = getMatrixFromFile(fileName, &rowCnt, &clmCnt);
-    wamMtx = createWeightAdjMatrix(mtx, rowCnt, clmCnt);
-    ddgMatrix = diagDegMatrix(wamMtx, rowCnt);
+    wamMtx = computeWeightAdjMatrix(mtx, rowCnt, clmCnt);
+    ddgMatrix = computeDiagDegMatrix(wamMtx, rowCnt);
     lnormMatrix = computeNormalizedLaplacian(ddgMatrix, wamMtx, rowCnt);
     output = pyMatrixFromDoubleArray(lnormMatrix, rowCnt, rowCnt);
     Neo(mtx, rowCnt);
@@ -169,7 +169,7 @@ static PyObject *pyPartialSpk(PyObject *self, PyObject *args){
         return NULL;
     }
     mtx = getMatrixFromFile(fileName, &n, &dim);
-    kVectors = partialSpk(&k, mtx, n, dim);
+    kVectors = computePartialSpk(&k, mtx, n, dim);
     output = pyMatrixFromDoubleArray(kVectors, n, k);
     Neo(kVectors, n);
     Neo(mtx, n);
