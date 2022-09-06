@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "SPKMEANS.H": "cpp",
+        "kmeans.h": "c",
+        "python.h": "c"
+    }
+}
